@@ -17,7 +17,7 @@ public class Product {
 
     public Product() { }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -27,10 +27,15 @@ public class Product {
     @Column(columnDefinition = "BOOLEAN")
     private boolean availability;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id")
     @JsonIgnoreProperties("products")
     private Supplier supplier;
+
+    @Transient
+    public double getDiscount() {
+        return (fullPrice - salePrice)/fullPrice * 100;
+    }
 
     public Integer getId() {
         return id;

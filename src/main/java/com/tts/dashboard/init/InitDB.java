@@ -45,7 +45,7 @@ public class InitDB implements ApplicationRunner {
 
     @Autowired
     public void run(ApplicationArguments args) {
-        //if (productRepository.count() > 0) return;
+        if (productRepository.count() > 0) return;
 
         productRepository.deleteAll();
         categoryRepository.deleteAll();
@@ -66,7 +66,8 @@ public class InitDB implements ApplicationRunner {
 
         // Fill in categories
         try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/categories.csv"))) {
-            List<Category> categories = lines.map(line -> new Category(replaceQuotes(line.split(",")[1])))
+            List<Category> categories = lines.map(
+                    line -> new Category(replaceQuotes(line.split(",")[1])))
                     .collect(Collectors.toList());
             categoryRepository.saveAll(categories);
         } catch (IOException e) {
@@ -75,7 +76,8 @@ public class InitDB implements ApplicationRunner {
 
         // Fill in suppliers
         try (Stream<String> lines = Files.lines(Paths.get("src/main/resources/suppliers.csv"))) {
-            List<Supplier> suppliers = lines.map(line -> new Supplier(replaceQuotes(line.split(",",2)[1])))
+            List<Supplier> suppliers = lines.map(
+                    line -> new Supplier(replaceQuotes(line.split(",",2)[1])))
                     .collect(Collectors.toList());
             supplierRepository.saveAll(suppliers);
         } catch (IOException e) {
