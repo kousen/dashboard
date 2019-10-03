@@ -46,6 +46,9 @@ public class ProductRepositoryTest {
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @Test
     public void findAllOrderByDiscount() {
+        // List<Product> products = dao.findAll(Sort.by("discount"));
+        // List<Product> products = dao.findAllOrderByDiscount();
+
         List<Product> products = dao.findAll().stream()
                 .sorted(Comparator.comparingDouble(Product::getDiscount))
                 .collect(Collectors.toList());

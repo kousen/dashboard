@@ -33,6 +33,8 @@ public class Product {
     private Supplier supplier;
 
     @Transient
+    private double discount;
+
     public double getDiscount() {
         return (fullPrice - salePrice)/fullPrice * 100;
     }
